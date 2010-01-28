@@ -111,7 +111,7 @@ def replace(text, max_width=MAX_WIDTH, max_height=MAX_HEIGHT):
     dictionary representation of the response.
     """
     rules = list(ProviderRule.objects.all())
-    patterns = [re.compile(r.regex) for r in rules] # Compiled patterns from the rules
+    patterns = [re.compile(r'(?<!["\'])' + r.regex) for r in rules] # Compiled patterns from the rules
     parts = [] # The parts that we will assemble into the final return value.
     indices = [] # List of indices of parts that need to be replaced with OEmbed stuff.
     indices_rules = [] # List of indices into the rules in order for which index was gotten by.

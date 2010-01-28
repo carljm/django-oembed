@@ -8,6 +8,8 @@ class OEmbedTests(TestCase):
     middle = ur"There is a movie here: %s and I really like it."
     trailing_comma = ur"This is great %s, but it might not work."
     trailing_period = ur"I like this video, located at %s."
+    link_dquote = ur'I like <a href="%s">this video</a>.'
+    link_squote = ur"I like <a href='%s'>this video</a>."
     
     loc = u"http://www.viddler.com/explore/SYSTM/videos/49/"
     
@@ -25,6 +27,11 @@ class OEmbedTests(TestCase):
                 replace(text % self.loc),
                 text % self.embed
             )
+
+    def testInLink(self):
+        for text in (self.link_dquote, self.link_squote):
+            withlink = text % self.loc
+            self.assertEquals(replace(withlink), withlink)
     
     def testManySameEmbeds(self):
         text = " ".join([self.middle % self.loc] * 100) 
